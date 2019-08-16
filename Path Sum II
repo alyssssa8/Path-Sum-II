@@ -1,0 +1,30 @@
+class Solution {
+    
+private:
+    vector<vector<int>> ans;
+    vector<int> tempAns;
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int sum) {
+        
+        dfs(root, sum);
+        return ans;
+    }
+    
+    void dfs(TreeNode* root, int sum){
+        if (root == NULL){
+            return;
+        }
+        if (root->left == NULL && root->right == NULL){
+            if (sum == root->val){
+              // tempAns.push_back(root->val);
+              ans.push_back(tempAns);
+              ans.back().push_back(root->val);
+              return;
+            }
+        }
+        tempAns.push_back(root->val);
+        dfs(root->left, sum - root->val);
+        dfs(root->right, sum - root->val);
+        tempAns.pop_back();
+    }
+};
